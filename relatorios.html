@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Relatórios • LEGO TECH</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#eef2ff;
+padding:30px;
+color:#1e1e1e;
+}
+
+.container{
+max-width:1200px;
+margin:auto;
+}
+
+.header{
+background:linear-gradient(135deg,#25115f,#4b2bbf);
+padding:35px;
+border-radius:28px;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+
+.header h1{
+font-size:42px;
+margin-bottom:10px;
+}
+
+.header p{
+opacity:0.9;
+font-size:17px;
+}
+
+.header img{
+width:180px;
+}
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+gap:15px;
+flex-wrap:wrap;
+}
+
+.input-busca{
+flex:1;
+min-width:250px;
+}
+
+.input-busca input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:14px;
+font-size:16px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.botao-limpar{
+background:#d32f2f;
+color:white;
+border:none;
+padding:14px 22px;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+font-weight:600;
+transition:0.3s;
+}
+
+.botao-limpar:hover{
+background:#b71c1c;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:20px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.card h2{
+color:#311b92;
+margin-bottom:10px;
+font-size:28px;
+}
+
+.info{
+margin-top:15px;
+line-height:2;
+}
+
+.tag{
+display:inline-block;
+background:#ede7ff;
+color:#311b92;
+padding:8px 14px;
+border-radius:30px;
+font-size:14px;
+font-weight:600;
+margin-top:12px;
+}
+
+.botoes{
+display:flex;
+gap:12px;
+margin-top:20px;
+flex-wrap:wrap;
+}
+
+.btn{
+flex:1;
+border:none;
+padding:13px;
+border-radius:12px;
+cursor:pointer;
+font-weight:600;
+transition:0.3s;
+}
+
+.btn-abrir{
+background:#311b92;
+color:white;
+}
+
+.btn-abrir:hover{
+background:#25115f;
+}
+
+.btn-excluir{
+background:#ef5350;
+color:white;
+}
+
+.btn-excluir:hover{
+background:#d32f2f;
+}
+
+.vazio{
+background:white;
+padding:40px;
+border-radius:24px;
+text-align:center;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
+}
+
+.footer{
+text-align:center;
+margin-top:40px;
+opacity:0.7;
+}
+
+@media(max-width:800px){
+
+.header{
+flex-direction:column;
+text-align:center;
+gap:20px;
+}
+
+.header h1{
+font-size:34px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- HEADER -->
+
+<div class="header">
+
+<div>
+<h1>📄 Relatórios</h1>
+<p>Histórico oficial de testagens da equipe LEGO TECH.</p>
+</div>
+
+<img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png">
+
+</div>
+
+<!-- TOPO -->
+
+<div class="topbar">
+
+<div class="input-busca">
+<input
+type="text"
+id="busca"
+placeholder="Pesquisar relatório..."
+onkeyup="filtrarRelatorios()"
+>
+</div>
+
+<button
+class="botao-limpar"
+onclick="limparRelatorios()"
+>
+🗑 Limpar tudo
+</button>
+
+</div>
+
+<!-- LISTA -->
+
+<div class="grid" id="lista-relatorios">
+
+</div>
+
+<!-- FOOTER -->
+
+<div class="footer">
+LEGO TECH • Sistema Oficial FLL
+</div>
+
+</div>
+
+<script>
+
+const lista =
+document.getElementById(
+'lista-relatorios'
+);
+
+let relatorios =
+JSON.parse(
+localStorage.getItem('relatorios')
+) || [];
+
+function renderizarRelatorios(){
+
+lista.innerHTML = '';
+
+if(relatorios.length === 0){
+
+lista.innerHTML = `
+
+<div class="vazio">
+
+<h2>
+Nenhum relatório salvo
+</h2>
+
+<p style="margin-top:10px;">
+Os relatórios aparecerão aqui
+após serem salvos.
+</p>
+
+</div>
+
+`;
+
+return;
+
+}
+
+relatorios
+.slice()
+.reverse()
+.forEach((relatorio,index)=>{
+
+lista.innerHTML += `
+
+<div class="card">
+
+<h2>
+🧪 Teste ${relatorio.data}
+</h2>
+
+<div class="tag">
+Pontuação:
+${relatorio.pontuacao}
+pontos
+</div>
+
+<div class="info">
+
+<p>
+📅 <strong>Data:</strong>
+${relatorio.data}
+</p>
+
+<p>
+🏆 <strong>Pontuação:</strong>
+${relatorio.pontuacao}
+</p>
+
+</div>
+
+<div class="botoes">
+
+<button
+class="btn btn-abrir"
+onclick="abrirRelatorio(${index})"
+>
+📂 Abrir
+</button>
+
+<button
+class="btn btn-excluir"
+onclick="excluirRelatorio(${index})"
+>
+🗑 Excluir
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function abrirRelatorio(index){
+
+const relatorio =
+relatorios
+.slice()
+.reverse()[index];
+
+alert(
+
+`RELATÓRIO\n\n` +
+
+`📅 Data: ${relatorio.data}\n` +
+
+`🏆 Pontuação: ${relatorio.pontuacao} pontos`
+
+);
+
+}
+
+function excluirRelatorio(index){
+
+const confirmacao =
+confirm(
+'Deseja excluir este relatório?'
+);
+
+if(confirmacao){
+
+const invertido =
+relatorios.slice().reverse();
+
+invertido.splice(index,1);
+
+relatorios =
+invertido.reverse();
+
+localStorage.setItem(
+'relatorios',
+JSON.stringify(relatorios)
+);
+
+renderizarRelatorios();
+
+}
+
+}
+
+function limparRelatorios(){
+
+const confirmacao =
+confirm(
+'Deseja apagar TODOS os relatórios?'
+);
+
+if(confirmacao){
+
+localStorage.removeItem(
+'relatorios'
+);
+
+relatorios = [];
+
+renderizarRelatorios();
+
+}
+
+}
+
+function filtrarRelatorios(){
+
+const pesquisa =
+document
+.getElementById('busca')
+.value
+.toLowerCase();
+
+const cards =
+document.querySelectorAll('.card');
+
+cards.forEach(card=>{
+
+const texto =
+card.innerText.toLowerCase();
+
+if(texto.includes(pesquisa)){
+
+card.style.display='block';
+
+}else{
+
+card.style.display='none';
+
+}
+
+});
+
+}
+
+renderizarRelatorios();
+
+</script>
+
+</body>
+</html>
