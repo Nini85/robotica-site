@@ -10,6 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
+<!-- Biblioteca PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 
 *{
@@ -314,7 +317,7 @@ leitor.readAsDataURL(arquivo);
 
 });
 
-function salvarEvolucao(){
+async function salvarEvolucao(){
 
 const data = document.getElementById('data').value;
 
@@ -347,11 +350,117 @@ localStorage.setItem(
 JSON.stringify(evolucoes)
 );
 
+await gerarPDF(evolucao);
+
 alert('Evolução salva com sucesso!');
 
 mostrarHistorico();
 
 limparFormulario();
+
+}
+
+async function gerarPDF(evolucao){
+
+const { jsPDF } = window.jspdf;
+
+const pdf = new jsPDF();
+
+// Fundo do topo
+pdf.setFillColor(49,27,146);
+pdf.rect(0,0,210,40,'F');
+
+// Título
+pdf.setTextColor(255,255,255);
+pdf.setFontSize(24);
+pdf.text("Evolução do Robô", 20, 22);
+
+pdf.setFontSize(12);
+pdf.text("LEGO TECH • Registro Oficial", 20, 30);
+
+// Corpo
+pdf.setTextColor(0,0,0);
+
+pdf.setFontSize(16);
+pdf.text(`Versão: ${evolucao.versao}`, 20, 55);
+
+pdf.setFontSize(12);
+
+pdf.text(`Data: ${evolucao.data}`, 20, 68);
+
+// Mudanças
+pdf.setFillColor(245,245,255);
+pdf.roundedRect(15, 75, 180, 35, 5, 5, 'F');
+
+pdf.setFont(undefined, 'bold');
+pdf.text("🚀 O que mudou?", 20, 85);
+
+pdf.setFont(undefined, 'normal');
+
+const mudancasTexto =
+pdf.splitTextToSize(evolucao.mudancas, 165);
+
+pdf.text(mudancasTexto, 20, 93);
+
+// Problemas
+pdf.setFillColor(245,245,255);
+pdf.roundedRect(15, 118, 180, 35, 5, 5, 'F');
+
+pdf.setFont(undefined, 'bold');
+pdf.text("⚠ Problemas encontrados", 20, 128);
+
+pdf.setFont(undefined, 'normal');
+
+const problemasTexto =
+pdf.splitTextToSize(evolucao.problemas, 165);
+
+pdf.text(problemasTexto, 20, 136);
+
+// Melhorias
+pdf.setFillColor(245,245,255);
+pdf.roundedRect(15, 161, 180, 35, 5, 5, 'F');
+
+pdf.setFont(undefined, 'bold');
+pdf.text("💡 Melhorias realizadas", 20, 171);
+
+pdf.setFont(undefined, 'normal');
+
+const melhoriasTexto =
+pdf.splitTextToSize(evolucao.melhorias, 165);
+
+pdf.text(melhoriasTexto, 20, 179);
+
+// Foto
+if(evolucao.foto){
+
+pdf.setFont(undefined, 'bold');
+
+pdf.text("📷 Foto da evolução", 20, 215);
+
+pdf.addImage(
+evolucao.foto,
+'JPEG',
+20,
+220,
+80,
+60
+);
+
+}
+
+// Rodapé
+pdf.setFontSize(10);
+
+pdf.setTextColor(120);
+
+pdf.text(
+"Documento gerado automaticamente pelo sistema LEGO TECH",
+20,
+290
+);
+
+// Baixar PDF
+pdf.save(`Evolucao_${evolucao.versao}.pdf`);
 
 }
 
