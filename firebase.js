@@ -8,16 +8,6 @@ import {
   signInWithEmailAndPassword
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-// FIRESTORE
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs,
-  deleteDoc,
-  doc
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 // CONFIGURAÇÃO FIREBASE
 const firebaseConfig = {
 
@@ -40,9 +30,6 @@ const app = initializeApp(firebaseConfig);
 
 // Inicializa Auth
 const auth = getAuth(app);
-
-// Inicializa Firestore
-const db = getFirestore(app);
 
 console.log("Firebase conectado!");
 
@@ -104,72 +91,3 @@ login.addEventListener("click", async () => {
   }
 
 });
-
-// =====================================
-// TESTE FIRESTORE
-// =====================================
-
-// SALVAR TESTE
-async function salvarTeste() {
-
-  try {
-
-    await addDoc(collection(db, "teste"), {
-
-      nome: "LEGO TECH",
-      data: new Date().toLocaleString()
-
-    });
-
-    console.log("Documento salvo!");
-
-  } catch (e) {
-
-    console.error("Erro:", e);
-
-  }
-
-}
-
-// LER TESTE
-async function lerTeste() {
-
-  const querySnapshot =
-    await getDocs(collection(db, "teste"));
-
-  querySnapshot.forEach((docItem) => {
-
-    console.log(docItem.id, " => ", docItem.data());
-
-  });
-
-}
-
-// Executa testes
-salvarTeste();
-
-lerTeste();
-
-async function salvarTeste() {
-
-  try {
-
-    const docRef = await addDoc(
-      collection(db, "teste"),
-      {
-        nome: "LEGO TECH",
-        data: new Date().toLocaleString()
-      }
-    );
-
-    console.log("SALVO!", docRef.id);
-
-  } catch (error) {
-
-    console.error("ERRO:", error);
-
-  }
-
-}
-
-salvarTeste();
