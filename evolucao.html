@@ -123,11 +123,13 @@ background:#25115f;
 .preview{
 margin-top:20px;
 display:flex;
+flex-wrap:wrap;
+gap:15px;
 justify-content:center;
 }
 
 .preview img{
-max-width:320px;
+width:180px;
 border-radius:18px;
 box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
@@ -155,11 +157,16 @@ margin-top:10px;
 line-height:1.7;
 }
 
-.timeline-item img{
-max-width:250px;
+.timeline-imagens{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
 margin-top:15px;
+}
+
+.timeline-imagens img{
+width:180px;
 border-radius:15px;
-display:block;
 }
 
 .apagar-btn{
@@ -208,7 +215,7 @@ font-size:34px;
 <div class="header">
 
 <div>
-<h1>📷 Evolução do Robô</h1>
+<h1>🤖 Evolução do Robô</h1>
 <p>Registro oficial de melhorias e evolução da equipe LEGO TECH.</p>
 </div>
 
@@ -218,7 +225,7 @@ font-size:34px;
 
 <div class="card">
 
-<h2>🛠 Nova Evolução</h2>
+<h2>📝 Nova Evolução</h2>
 
 <div class="grid">
 
@@ -228,7 +235,7 @@ font-size:34px;
 </div>
 
 <div class="input-group">
-<label>🤖 Versão do robô</label>
+<label>🚀 Versão do robô</label>
 <input type="text" id="versao">
 </div>
 
@@ -237,7 +244,7 @@ font-size:34px;
 <br>
 
 <div class="input-group">
-<label>🚀 O que mudou?</label>
+<label>🔧 O que mudou?</label>
 <textarea id="mudancas"></textarea>
 </div>
 
@@ -251,20 +258,18 @@ font-size:34px;
 <br>
 
 <div class="input-group">
-<label>💡 Melhorias realizadas</label>
+<label>✅ Melhorias realizadas</label>
 <textarea id="melhorias"></textarea>
 </div>
 
 <br>
 
 <div class="input-group">
-<label>📷 Upload de foto</label>
-<input type="file" id="foto">
+<label>📸 Upload de fotos</label>
+<input type="file" id="foto" multiple accept="image/*">
 </div>
 
-<div class="preview">
-<img id="preview">
-</div>
+<div class="preview" id="preview"></div>
 
 <button class="botao" onclick="salvarEvolucao()">
 💾 Salvar Evolução
@@ -293,27 +298,36 @@ LEGO TECH • Sistema Oficial FLL
 const foto = document.getElementById('foto');
 const preview = document.getElementById('preview');
 
-let imagemBase64 = '';
+let imagensBase64 = [];
 
 foto.addEventListener('change', function(){
 
-const arquivo = this.files[0];
+preview.innerHTML = '';
+imagensBase64 = [];
 
-if(arquivo){
+const arquivos = this.files;
+
+Array.from(arquivos).forEach((arquivo) => {
 
 const leitor = new FileReader();
 
 leitor.onload = function(e){
 
-imagemBase64 = e.target.result;
+const imagem = e.target.result;
 
-preview.src = imagemBase64;
+imagensBase64.push(imagem);
+
+const img = document.createElement('img');
+
+img.src = imagem;
+
+preview.appendChild(img);
 
 }
 
 leitor.readAsDataURL(arquivo);
 
-}
+});
 
 });
 
@@ -336,7 +350,7 @@ versao,
 mudancas,
 problemas,
 melhorias,
-foto: imagemBase64
+fotos: imagensBase64
 
 };
 
@@ -366,11 +380,9 @@ const { jsPDF } = window.jspdf;
 
 const pdf = new jsPDF();
 
-// Fundo do topo
 pdf.setFillColor(49,27,146);
 pdf.rect(0,0,210,40,'F');
 
-// Título
 pdf.setTextColor(255,255,255);
 pdf.setFontSize(24);
 pdf.text("Evolução do Robô", 20, 22);
@@ -378,22 +390,19 @@ pdf.text("Evolução do Robô", 20, 22);
 pdf.setFontSize(12);
 pdf.text("LEGO TECH • Registro Oficial", 20, 30);
 
-// Corpo
 pdf.setTextColor(0,0,0);
 
 pdf.setFontSize(16);
 pdf.text(`Versão: ${evolucao.versao}`, 20, 55);
 
 pdf.setFontSize(12);
-
 pdf.text(`Data: ${evolucao.data}`, 20, 68);
 
-// Mudanças
 pdf.setFillColor(245,245,255);
 pdf.roundedRect(15, 75, 180, 35, 5, 5, 'F');
 
 pdf.setFont(undefined, 'bold');
-pdf.text("🚀 O que mudou?", 20, 85);
+pdf.text(" O que mudou?", 20, 85);
 
 pdf.setFont(undefined, 'normal');
 
@@ -402,12 +411,11 @@ pdf.splitTextToSize(evolucao.mudancas, 165);
 
 pdf.text(mudancasTexto, 20, 93);
 
-// Problemas
 pdf.setFillColor(245,245,255);
 pdf.roundedRect(15, 118, 180, 35, 5, 5, 'F');
 
 pdf.setFont(undefined, 'bold');
-pdf.text("⚠ Problemas encontrados", 20, 128);
+pdf.text(" Problemas encontrados", 20, 128);
 
 pdf.setFont(undefined, 'normal');
 
@@ -416,12 +424,11 @@ pdf.splitTextToSize(evolucao.problemas, 165);
 
 pdf.text(problemasTexto, 20, 136);
 
-// Melhorias
 pdf.setFillColor(245,245,255);
 pdf.roundedRect(15, 161, 180, 35, 5, 5, 'F');
 
 pdf.setFont(undefined, 'bold');
-pdf.text("💡 Melhorias realizadas", 20, 171);
+pdf.text(" Melhorias realizadas", 20, 171);
 
 pdf.setFont(undefined, 'normal');
 
@@ -430,25 +437,37 @@ pdf.splitTextToSize(evolucao.melhorias, 165);
 
 pdf.text(melhoriasTexto, 20, 179);
 
-// Foto
-if(evolucao.foto){
+if(evolucao.fotos && evolucao.fotos.length > 0){
 
 pdf.setFont(undefined, 'bold');
 
-pdf.text("📷 Foto da evolução", 20, 215);
+pdf.text(" Fotos da evolução", 20, 215);
+
+let x = 20;
+let y = 220;
+
+evolucao.fotos.forEach((foto, index) => {
 
 pdf.addImage(
-evolucao.foto,
+foto,
 'JPEG',
-20,
-220,
-80,
-60
+x,
+y,
+50,
+40
 );
+
+x += 60;
+
+if(x > 140){
+x = 20;
+y += 50;
+}
+
+});
 
 }
 
-// Rodapé
 pdf.setFontSize(10);
 
 pdf.setTextColor(120);
@@ -459,7 +478,6 @@ pdf.text(
 290
 );
 
-// Baixar PDF
 pdf.save(`Evolucao_${evolucao.versao}.pdf`);
 
 }
@@ -484,30 +502,36 @@ historico.innerHTML += `
 <div class="timeline-item">
 
 <h3>
-🤖 Versão ${item.versao}
+ Versão ${item.versao}
 </h3>
 
 <p>
-📅 <strong>Data:</strong>
+ <strong>Data:</strong>
 ${item.data}
 </p>
 
 <p>
-🚀 <strong>Mudanças:</strong><br>
+ <strong>Mudanças:</strong><br>
 ${item.mudancas}
 </p>
 
 <p>
-⚠ <strong>Problemas:</strong><br>
+ <strong>Problemas:</strong><br>
 ${item.problemas}
 </p>
 
 <p>
-💡 <strong>Melhorias:</strong><br>
+ <strong>Melhorias:</strong><br>
 ${item.melhorias}
 </p>
 
-${item.foto ? `<img src="${item.foto}">` : ''}
+<div class="timeline-imagens">
+
+${item.fotos ? item.fotos.map(foto =>
+`<img src="${foto}">`
+).join('') : ''}
+
+</div>
 
 <button class="apagar-btn" onclick="apagarEvolucao(${index})">
 🗑 Apagar
@@ -556,9 +580,9 @@ document.getElementById('problemas').value = '';
 document.getElementById('melhorias').value = '';
 document.getElementById('foto').value = '';
 
-preview.src = '';
+preview.innerHTML = '';
 
-imagemBase64 = '';
+imagensBase64 = [];
 
 }
 
