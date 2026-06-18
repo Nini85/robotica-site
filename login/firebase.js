@@ -77,7 +77,7 @@ status.innerHTML =
 setTimeout(()=>{
 
 window.location.href =
-'../index.html';
+'../index020.html';
 
 },1000);
 
