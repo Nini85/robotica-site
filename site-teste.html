@@ -1,824 +1,365 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FLL Team Manager</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<title>LEGOTECH • FLL Manager</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:'Inter',sans-serif;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
 }
 
 body{
-background:#07111f;
+background:#edf2ff;
+color:#1e1e1e;
+}
+
+.header{
+background:linear-gradient(135deg,#25115f,#4b2bbf);
 color:white;
+padding:30px;
+border-radius:25px;
+margin:20px;
 display:flex;
-min-height:100vh;
-overflow-x:hidden;
+justify-content:space-between;
+align-items:center;
 }
 
-.sidebar{
-width:270px;
-background:#0b1726;
-padding:30px 20px;
-position:fixed;
-height:100vh;
-border-right:1px solid rgba(255,255,255,0.08);
-}
-
-.logo{
-font-size:30px;
+.header h1{
+font-size:38px;
 font-weight:800;
-margin-bottom:40px;
-color:#4da3ff;
 }
 
-.logo span{
+.nav{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin:0 20px 20px 20px;
+}
+
+.nav button{
+background:white;
+border:none;
+padding:12px 18px;
+border-radius:14px;
+cursor:pointer;
+font-weight:600;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.nav button:hover{
+background:#311b92;
 color:white;
 }
 
-.sidebar nav{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.sidebar nav a{
-text-decoration:none;
-color:#d8e6ff;
-padding:14px;
-border-radius:14px;
-background:#101f31;
-transition:0.3s;
-font-weight:500;
-}
-
-.sidebar nav a:hover{
-background:#163554;
-transform:translateX(4px);
-}
-
-.main{
-margin-left:270px;
-width:calc(100% - 270px);
-padding:35px;
-}
-
-.hero{
-background:linear-gradient(135deg,#123456,#1b4670);
-padding:40px;
-border-radius:28px;
-margin-bottom:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-}
-
-.hero h1{
-font-size:42px;
-margin-bottom:10px;
-}
-
-.hero p{
-color:#d6e5ff;
-line-height:1.7;
-max-width:800px;
-}
-
-.section{
-margin-top:35px;
-}
-
-.section-title{
-font-size:28px;
-margin-bottom:20px;
-color:#4da3ff;
+.container{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(350px,1fr));
+gap:20px;
 }
 
 .card{
-background:#0d1b2a;
-border:1px solid rgba(255,255,255,0.06);
-padding:25px;
-border-radius:24px;
-margin-bottom:20px;
-}
-
-.form-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:15px;
-margin-bottom:15px;
-}
-
-input, textarea, select{
-width:100%;
-padding:14px;
-border:none;
-border-radius:14px;
-background:#13263b;
-color:white;
-font-size:15px;
-}
-
-textarea{
-min-height:120px;
-resize:vertical;
-}
-
-button{
-background:#2784ff;
-color:white;
-border:none;
-padding:14px 20px;
-border-radius:14px;
-font-weight:700;
-cursor:pointer;
-transition:0.3s;
-}
-
-button:hover{
-background:#4596ff;
-transform:translateY(-2px);
-}
-
-.data-list{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-margin-top:20px;
-}
-
-.item{
-background:#13263b;
-padding:20px;
+background:white;
+padding:22px;
 border-radius:20px;
-position:relative;
+box-shadow:0 8px 25px rgba(0,0,0,0.08);
 }
 
-.item h3{
-margin-bottom:10px;
-color:#4da3ff;
-}
-
-.item p{
-line-height:1.6;
-color:#d7e5f7;
-}
-
-.delete-btn{
-position:absolute;
-top:15px;
-right:15px;
-background:#c62828;
-padding:8px 12px;
-font-size:12px;
-}
-
-.kanban{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
-.kanban-column{
-min-height:400px;
-background:#0d1b2a;
-padding:20px;
-border-radius:24px;
-min-height:300px;
-}
-
-.kanban-column h3{
+h2{
+color:#311b92;
 margin-bottom:15px;
-color:#4da3ff;
 }
 
-.task{
-background:#16314d;
-cursor:grab;
-padding:15px;
-border-radius:16px;
-margin-bottom:12px;
-transition:0.3s;
+input,textarea,select{
+width:100%;
+padding:12px;
+border-radius:12px;
+border:1px solid #ddd;
+margin-bottom:10px;
 }
 
-.todo-task{
-background:rgba(255,152,0,0.18);
-border-left:5px solid #ff9800;
-}
+textarea{min-height:90px;}
 
-.doing-task{
-background:rgba(33,150,243,0.18);
-border-left:5px solid #2196f3;
-}
-
-.done-task{
-background:rgba(76,175,80,0.18);
-border-left:5px solid #4caf50;
+button.action{
+background:#311b92;
+color:white;
+border:none;
+padding:12px;
+border-radius:12px;
+cursor:pointer;
+font-weight:700;
+margin-top:5px;
 }
 
 .stats{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-gap:20px;
-margin-top:25px;
+gap:15px;
+margin:20px;
 }
 
-.stat-box{
-background:#0d1b2a;
-padding:25px;
-border-radius:22px;
+.stat{
+background:white;
+padding:20px;
+border-radius:18px;
 text-align:center;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
-.stat-box h2{
-font-size:38px;
-color:#4da3ff;
-margin-bottom:8px;
+.stat h1{
+color:#311b92;
+font-size:32px;
 }
 
-.footer{
-margin-top:50px;
+/* KANBAN */
+.kanban{
+display:flex;
+gap:15px;
+overflow-x:auto;
+padding:10px;
+}
+
+.column{
+min-width:300px;
+background:#f4f6ff;
+border-radius:18px;
+padding:15px;
+}
+
+.column h3{
 text-align:center;
-color:#8aa3c4;
+margin-bottom:10px;
+color:#311b92;
 }
 
-@media(max-width:900px){
-body{
-flex-direction:column;
+.task{
+background:white;
+padding:12px;
+border-radius:14px;
+margin-bottom:10px;
+cursor:grab;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
 }
 
-.sidebar{
-position:relative;
-width:100%;
-height:auto;
+.item{
+background:white;
+padding:18px;
+border-radius:18px;
+margin-bottom:10px;
+box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
-.main{
-margin-left:0;
-width:100%;
+.delete{
+margin-top:8px;
+background:#e53935;
+color:white;
+border:none;
+padding:6px 10px;
+border-radius:10px;
+cursor:pointer;
+font-size:12px;
 }
-}
+
 </style>
 </head>
+
 <body>
 
-<div class="sidebar">
-<div class="logo">FLL <span>Manager</span></div>
-
-<nav>
-<a href="#dashboard">🏠 Dashboard</a>
-<a href="#smart">🎯 SMART</a>
-<a href="#kanban">📋 Kanban</a>
-<a href="#planejamento">🧠 5W2H</a>
-<a href="#swot">📊 SWOT</a>
-<a href="#troca">🔄 TROCA</a>
-</nav>
+<div class="header">
+<h1>🏆 LEGOTECH FLL</h1>
 </div>
 
-<div class="main">
-
-<section class="hero" id="dashboard">
-<h1>Painel Estratégico FLL</h1>
-<p>
-Sistema completo de gerenciamento da equipe FIRST LEGO League.
-Registre metas, tarefas, planejamento, feedbacks, SWOT e evolução da temporada.
-Todos os dados ficam salvos automaticamente no navegador.
-</p>
-</section>
+<div class="nav">
+<button onclick="document.getElementById('smart').scrollIntoView()">SMART</button>
+<button onclick="document.getElementById('kanban').scrollIntoView()">KANBAN</button>
+<button onclick="document.getElementById('swot').scrollIntoView()">SWOT</button>
+<button onclick="document.getElementById('plan').scrollIntoView()">5W2H</button>
+</div>
 
 <div class="stats">
-<div class="stat-box">
-<h2 id="smartCount">0</h2>
-<p>Metas SMART</p>
+<div class="stat"><h1 id="s1">0</h1><p>SMART</p></div>
+<div class="stat"><h1 id="s2">0</h1><p>Tarefas</p></div>
+<div class="stat"><h1 id="s3">0</h1><p>Planos</p></div>
+<div class="stat"><h1 id="s4">0</h1><p>SWOT</p></div>
 </div>
 
-<div class="stat-box">
-<h2 id="taskCount">0</h2>
-<p>Tarefas Kanban</p>
+<div class="container">
+
+<!-- SMART -->
+<div class="card" id="smart">
+<h2>🎯 SMART</h2>
+<input id="st1" placeholder="Meta">
+<input id="st2" placeholder="Área">
+<input id="st3" placeholder="Prazo">
+<textarea id="st4" placeholder="Descrição"></textarea>
+<button class="action" onclick="addSmart()">Adicionar</button>
+<div id="smartList"></div>
 </div>
 
-<div class="stat-box">
-<h2 id="planCount">0</h2>
-<p>Planejamentos 5W2H</p>
-</div>
-
-<div class="stat-box">
-<h2 id="feedbackCount">0</h2>
-<p>Feedbacks TROCA</p>
-</div>
-</div>
-
-<section class="section" id="smart">
-<h2 class="section-title">🎯 Metas SMART</h2>
-
-<div class="card">
-<div class="form-grid">
-<input type="text" id="smartTitle" placeholder="Meta SMART">
-<input type="text" id="smartArea" placeholder="Área">
-<input type="text" id="smartDeadline" placeholder="Prazo">
-</div>
-
-<textarea id="smartDesc" placeholder="Descrição da meta"></textarea>
-<br><br>
-<button onclick="addSmart()">Adicionar Meta</button>
-</div>
-
-<div class="data-list" id="smartList"></div>
-</section>
-
-<section class="section" id="kanban">
-<h2 class="section-title">📋 Kanban</h2>
-
-<div class="card">
-<div class="form-grid">
-<input type="text" id="taskTitle" placeholder="Nome da tarefa">
-<select id="taskStatus">
-<option>A Fazer</option>
-<option>Fazendo</option>
-<option>Finalizado</option>
-</select>
-</div>
-
-<textarea id="taskDesc" placeholder="Descrição da tarefa"></textarea>
-<br><br>
-<button onclick="addTask()">Adicionar Tarefa</button>
-</div>
+<!-- KANBAN -->
+<div class="card" id="kanban">
+<h2>📋 Kanban</h2>
 
 <div class="kanban">
-<div class="kanban-column" ondrop="dropTask(event, 'A Fazer')" ondragover="allowDrop(event)">
-<h3>📝 A Fazer</h3>
-<div id="todoColumn"></div>
+<div class="column" ondrop="drop(event,'todo')" ondragover="allow(event)">
+<h3>A Fazer</h3>
+<div id="todo"></div>
 </div>
 
-<div class="kanban-column" ondrop="dropTask(event, 'Fazendo')" ondragover="allowDrop(event)">
-<h3>⚙️ Fazendo</h3>
-<div id="doingColumn"></div>
+<div class="column" ondrop="drop(event,'doing')" ondragover="allow(event)">
+<h3>Fazendo</h3>
+<div id="doing"></div>
 </div>
 
-<div class="kanban-column" ondrop="dropTask(event, 'Finalizado')" ondragover="allowDrop(event)">
-<h3>✅ Finalizado</h3>
-<div id="doneColumn"></div>
+<div class="column" ondrop="drop(event,'done')" ondragover="allow(event)">
+<h3>Feito</h3>
+<div id="done"></div>
 </div>
 </div>
-</section>
 
-<section class="section" id="planejamento">
-<h2 class="section-title">🧠 Planejamento 5W2H</h2>
-
-<div class="card">
-<div class="form-grid">
-<input type="text" id="oque" placeholder="O que será feito?">
-<input type="text" id="porque" placeholder="Por que será feito?">
-<input type="text" id="onde" placeholder="Onde será feito?">
-<input type="text" id="quando" placeholder="Quando será feito?">
-<input type="text" id="quem" placeholder="Quem fará?">
-<input type="text" id="como" placeholder="Como será feito?">
+<input id="tk1" placeholder="Tarefa">
+<button class="action" onclick="addTask()">Adicionar tarefa</button>
 </div>
 
-<textarea id="quanto" placeholder="Quanto custará / recursos necessários"></textarea>
-<br><br>
-<button onclick="addPlan()">Salvar Planejamento</button>
-<button onclick="exportPDF('5W2H', plans)">Exportar PDF</button>
+<!-- SWOT -->
+<div class="card" id="swot">
+<h2>📊 SWOT</h2>
+<textarea id="sw1"></textarea>
+<textarea id="sw2"></textarea>
+<textarea id="sw3"></textarea>
+<textarea id="sw4"></textarea>
+<button class="action" onclick="addSwot()">Salvar SWOT</button>
+<button class="action" onclick="exportSwotPDF()">Exportar PDF</button>
+<div id="swotList"></div>
 </div>
 
-<div class="data-list" id="planList"></div>
-</section>
-
-<section class="section" id="swot">
-<h2 class="section-title">📊 SWOT</h2>
-
-<div class="card">
-<div class="form-grid">
-<input type="text" id="swotVersion" placeholder="Nome da versão (Ex: Projeto V1)">
-<textarea id="strengths" placeholder="Forças"></textarea>
-<textarea id="weaknesses" placeholder="Fraquezas"></textarea>
-<textarea id="opportunities" placeholder="Oportunidades"></textarea>
-<textarea id="threats" placeholder="Ameaças"></textarea>
-</div>
-
-<button onclick="saveSwot()">Salvar SWOT</button>
-<button onclick="exportPDF('SWOT', swotVersions)">Exportar PDF</button>
-</div>
-
-<div class="data-list" id="swotDisplay"></div>
-</section>
-
-<section class="section" id="troca">
-<h2 class="section-title">🔄 Feedback TROCA</h2>
-
-<div class="card">
-<div class="form-grid">
-<input type="date" id="trocaData">
-<input type="text" id="trocaT" placeholder="Trouxe">
-<input type="text" id="trocaR" placeholder="Resultado">
-<input type="text" id="trocaO" placeholder="Oportunidade">
-<input type="text" id="trocaCA" placeholder="Correção/Ação">
-</div>
-
-<button onclick="addTroca()">Adicionar Feedback</button>
-</div>
-
-<div class="data-list" id="trocaList"></div>
-</section>
-
-<div class="footer">
-FLL Team Manager • Sistema Profissional da Equipe
+<!-- 5W2H -->
+<div class="card" id="plan">
+<h2>🧠 5W2H</h2>
+<input id="p1">
+<input id="p2">
+<input id="p3">
+<input id="p4">
+<input id="p5">
+<input id="p6">
+<textarea id="p7"></textarea>
+<button class="action" onclick="addPlan()">Salvar</button>
+<div id="planList"></div>
 </div>
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script>
-let smartGoals = JSON.parse(localStorage.getItem('smartGoals')) || [];
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-let plans = JSON.parse(localStorage.getItem('plans')) || [];
-let troca = JSON.parse(localStorage.getItem('troca')) || [];
-let swotVersions = JSON.parse(localStorage.getItem('swotVersions')) || [];
 
-function saveData(){
-localStorage.setItem('smartGoals', JSON.stringify(smartGoals));
-localStorage.setItem('tasks', JSON.stringify(tasks));
-localStorage.setItem('plans', JSON.stringify(plans));
-localStorage.setItem('troca', JSON.stringify(troca));
-localStorage.setItem('swotVersions', JSON.stringify(swotVersions));
-updateStats();
-}
+let smart=[],tasks=[],swot=[],plans=[];
 
-function updateStats(){
-document.getElementById('smartCount').innerText = smartGoals.length;
-document.getElementById('taskCount').innerText = tasks.length;
-document.getElementById('planCount').innerText = plans.length;
-document.getElementById('feedbackCount').innerText = troca.length;
-}
-
+/* SMART */
 function addSmart(){
-const title = document.getElementById('smartTitle').value;
-const area = document.getElementById('smartArea').value;
-const deadline = document.getElementById('smartDeadline').value;
-const desc = document.getElementById('smartDesc').value;
-
-if(!title) return;
-
-smartGoals.push({title, area, deadline, desc});
-saveData();
-renderSmart();
-
-smartTitle.value='';
-smartArea.value='';
-smartDeadline.value='';
-smartDesc.value='';
+smart.push({t:st1.value,a:st2.value,p:st3.value,d:st4.value});
+render();
 }
 
-function renderSmart(){
-const container = document.getElementById('smartList');
-container.innerHTML='';
-
-smartGoals.forEach((goal,index)=>{
-container.innerHTML += `
-<div class="item">
-<button class="delete-btn" onclick="deleteSmart(${index})">Excluir</button>
-<h3>${goal.title}</h3>
-<p><strong>Área:</strong> ${goal.area}</p>
-<p><strong>Prazo:</strong> ${goal.deadline}</p>
-<p>${goal.desc}</p>
-</div>
-`;
-});
-}
-
-function deleteSmart(index){
-smartGoals.splice(index,1);
-saveData();
-renderSmart();
-}
-
+/* TASK */
 function addTask(){
-const title = document.getElementById('taskTitle').value;
-const status = document.getElementById('taskStatus').value;
-const desc = document.getElementById('taskDesc').value;
-
-if(!title) return;
-
-tasks.push({title,status,desc});
-saveData();
-renderTasks();
-
-taskTitle.value='';
-taskDesc.value='';
+tasks.push({t:tk1.value,s:'todo'});
+tk1.value="";
+render();
 }
 
-function renderTasks(){
-document.getElementById('todoColumn').innerHTML='';
-document.getElementById('doingColumn').innerHTML='';
-document.getElementById('doneColumn').innerHTML='';
+function allow(ev){ev.preventDefault();}
+function drag(ev,i){ev.dataTransfer.setData("i",i);}
 
-tasks.forEach((task,index)=>{
-let taskClass = '';
-
-if(task.status === 'A Fazer'){
- taskClass = 'todo-task';
-}
-else if(task.status === 'Fazendo'){
- taskClass = 'doing-task';
-}
-else{
- taskClass = 'done-task';
-}
-
-const html = `
-<div class="task ${taskClass}" draggable="true" ondragstart="dragTask(event, ${index})">
-<h4>${task.title}</h4>
-<p>${task.desc}</p>
-<br>
-<button onclick="deleteTask(${index})">Excluir</button>
-</div>
-`;
-
-if(task.status === 'A Fazer'){
-document.getElementById('todoColumn').innerHTML += html;
-}
-else if(task.status === 'Fazendo'){
-document.getElementById('doingColumn').innerHTML += html;
-}
-else{
-document.getElementById('doneColumn').innerHTML += html;
-}
-});
-}
-
-function allowDrop(ev){
+function drop(ev,status){
 ev.preventDefault();
+let i=ev.dataTransfer.getData("i");
+tasks[i].s=status;
+render();
 }
 
-function dragTask(ev,index){
-ev.dataTransfer.setData('taskIndex', index);
+/* SWOT */
+function addSwot(){
+swot.push({f:sw1.value,fr:sw2.value,o:sw3.value,th:sw4.value});
+render();
 }
 
-function dropTask(ev,newStatus){
-ev.preventDefault();
-const index = ev.dataTransfer.getData('taskIndex');
-
-tasks[index].status = newStatus;
-saveData();
-renderTasks();
-}
-
-function deleteTask(index){
-tasks.splice(index,1);
-saveData();
-renderTasks();
-}
-
+/* 5W2H */
 function addPlan(){
-const data = {
-oque:oque.value,
-porque:porque.value,
-onde:onde.value,
-quando:quando.value,
-quem:quem.value,
-como:como.value,
-quanto:quanto.value
-};
-
-plans.push(data);
-saveData();
-renderPlans();
-
-oque.value='';
-porque.value='';
-onde.value='';
-quando.value='';
-quem.value='';
-como.value='';
-quanto.value='';
+plans.push({o:p1.value});
+render();
 }
 
-function renderPlans(){
-const container = document.getElementById('planList');
-container.innerHTML='';
+/* DELETE */
+function delSmart(i){smart.splice(i,1);render();}
+function delTask(i){tasks.splice(i,1);render();}
+function delSwot(i){swot.splice(i,1);render();}
+function delPlan(i){plans.splice(i,1);render();}
 
-plans.forEach((plan,index)=>{
-container.innerHTML += `
-<div class="item">
-<button class="delete-btn" onclick="deletePlan(${index})">Excluir</button>
-<h3>${plan.oque}</h3>
-<p><strong>Por quê:</strong> ${plan.porque}</p>
-<p><strong>Onde:</strong> ${plan.onde}</p>
-<p><strong>Quando:</strong> ${plan.quando}</p>
-<p><strong>Quem:</strong> ${plan.quem}</p>
-<p><strong>Como:</strong> ${plan.como}</p>
-<p><strong>Quanto:</strong> ${plan.quanto}</p>
-</div>
-`;
+/* PDF SWOT */
+function exportSwotPDF(){
+const {jsPDF}=window.jspdf;
+const doc=new jsPDF();
+let y=20;
+
+doc.text("SWOT LEGOTECH",20,y);
+y+=10;
+
+swot.forEach((s,i)=>{
+doc.text(`Forças: ${s.f}`,20,y);y+=8;
+doc.text(`Fraquezas: ${s.fr}`,20,y);y+=8;
+doc.text(`Oportunidades: ${s.o}`,20,y);y+=8;
+doc.text(`Ameaças: ${s.th}`,20,y);y+=12;
 });
+
+doc.save("swot.pdf");
 }
 
-function deletePlan(index){
-plans.splice(index,1);
-saveData();
-renderPlans();
+/* RENDER */
+function render(){
+
+smartList.innerHTML=smart.map((s,i)=>
+`<div class='item'>${s.t}<br><button class='delete' onclick='delSmart(${i})'>Excluir</button></div>`
+).join("");
+
+todo.innerHTML=tasks.filter(t=>t.s=='todo').map((t,i)=>
+`<div class='task' draggable='true' ondragstart='drag(event,${i})'>${t.t}<br><button class='delete' onclick='delTask(${i})'>Excluir</button></div>`
+).join("");
+
+doing.innerHTML=tasks.filter(t=>t.s=='doing').map((t,i)=>
+`<div class='task'>${t.t}<br><button class='delete' onclick='delTask(${i})'>Excluir</button></div>`
+).join("");
+
+done.innerHTML=tasks.filter(t=>t.s=='done').map((t,i)=>
+`<div class='task'>${t.t}<br><button class='delete' onclick='delTask(${i})'>Excluir</button></div>`
+).join("");
+
+swotList.innerHTML=swot.map((s,i)=>
+`<div class='item'>${s.f}<br><button class='delete' onclick='delSwot(${i})'>Excluir</button></div>`
+).join("");
+
+planList.innerHTML=plans.map((p,i)=>
+`<div class='item'>${p.o}<br><button class='delete' onclick='delPlan(${i})'>Excluir</button></div>`
+).join("");
+
+s1.innerText=smart.length;
+s2.innerText=tasks.length;
+s3.innerText=plans.length;
+s4.innerText=swot.length;
 }
 
-function saveSwot(){
-const data = {
-version: swotVersion.value,
-strengths: strengths.value,
-weaknesses: weaknesses.value,
-opportunities: opportunities.value,
-threats: threats.value
-};
+render();
 
-swotVersions.push(data);
-saveData();
-renderSwot();
-
-swotVersion.value='';
-strengths.value='';
-weaknesses.value='';
-opportunities.value='';
-threats.value='';
-}
-
-function renderSwot(){
-const container = document.getElementById('swotDisplay');
-container.innerHTML='';
-
-swotVersions.forEach((swot,index)=>{
-container.innerHTML += `
-<div class="item">
-<button class="delete-btn" onclick="deleteSwot(${index})">Excluir</button>
-<h3>📊 ${swot.version}</h3>
-<p><strong>💪 Forças:</strong> ${swot.strengths}</p>
-<p><strong>⚠️ Fraquezas:</strong> ${swot.weaknesses}</p>
-<p><strong>🚀 Oportunidades:</strong> ${swot.opportunities}</p>
-<p><strong>⛔ Ameaças:</strong> ${swot.threats}</p>
-</div>
-`;
-});
-}
-
-function deleteSwot(index){
-swotVersions.splice(index,1);
-saveData();
-renderSwot();
-}
-
-function addTroca(){
-const data = {
-data: trocaData.value,
-t:trocaT.value,
-r:trocaR.value,
-o:trocaO.value,
-ca:trocaCA.value
-};
-
-troca.push(data);
-saveData();
-renderTroca();
-
-trocaData.value='';
-trocaT.value='';
-trocaR.value='';
-trocaO.value='';
-trocaCA.value='';
-}
-
-function renderTroca(){
-const container = document.getElementById('trocaList');
-container.innerHTML='';
-
-troca.forEach((item,index)=>{
-container.innerHTML += `
-<div class="item">
-<button class="delete-btn" onclick="deleteTroca(${index})">Excluir</button>
-<h3>Feedback ${index + 1}</h3>
-<p><strong>📅 Data:</strong> ${item.data}</p>
-<p><strong>Trouxe:</strong> ${item.t}</p>
-<p><strong>Resultado:</strong> ${item.r}</p>
-<p><strong>Oportunidade:</strong> ${item.o}</p>
-<p><strong>Correção/Ação:</strong> ${item.ca}</p>
-</div>
-`;
-});
-}
-
-function exportPDF(title, data){
-const jspdf = window.jspdf;
-const doc = new jspdf.jsPDF();
-
-let y = 20;
-
-// Título
- doc.setFontSize(22);
- doc.text(title, 20, y);
- y += 20;
-
- doc.setFontSize(12);
-
- // SMART
- if(title === 'SMART'){
- data.forEach((item,index)=>{
- doc.text(`Meta ${index+1}`,20,y);
- y += 10;
- doc.text(`Título: ${item.title}`,20,y);
- y += 8;
- doc.text(`Área: ${item.area}`,20,y);
- y += 8;
- doc.text(`Prazo: ${item.deadline}`,20,y);
- y += 8;
- const desc = doc.splitTextToSize(`Descrição: ${item.desc}`,170);
- doc.text(desc,20,y);
- y += desc.length * 8 + 10;
- });
- }
-
- // 5W2H
- else if(title === '5W2H'){
- data.forEach((item,index)=>{
- doc.text(`Planejamento ${index+1}`,20,y);
- y += 10;
- doc.text(`O que: ${item.oque}`,20,y);
- y += 8;
- doc.text(`Por quê: ${item.porque}`,20,y);
- y += 8;
- doc.text(`Onde: ${item.onde}`,20,y);
- y += 8;
- doc.text(`Quando: ${item.quando}`,20,y);
- y += 8;
- doc.text(`Quem: ${item.quem}`,20,y);
- y += 8;
- const como = doc.splitTextToSize(`Como: ${item.como}`,170);
- doc.text(como,20,y);
- y += como.length * 8;
- const quanto = doc.splitTextToSize(`Quanto: ${item.quanto}`,170);
- doc.text(quanto,20,y);
- y += quanto.length * 8 + 12;
- });
- }
-
- // SWOT
- else if(title === 'SWOT'){
- data.forEach((item,index)=>{
- doc.text(`Versão: ${item.version}`,20,y);
- y += 10;
- const strengths = doc.splitTextToSize(`Forças: ${item.strengths}`,170);
- doc.text(strengths,20,y);
- y += strengths.length * 8;
- const weaknesses = doc.splitTextToSize(`Fraquezas: ${item.weaknesses}`,170);
- doc.text(weaknesses,20,y);
- y += weaknesses.length * 8;
- const opportunities = doc.splitTextToSize(`Oportunidades: ${item.opportunities}`,170);
- doc.text(opportunities,20,y);
- y += opportunities.length * 8;
- const threats = doc.splitTextToSize(`Ameaças: ${item.threats}`,170);
- doc.text(threats,20,y);
- y += threats.length * 8 + 12;
- });
- }
-
- // TROCA
- else if(title === 'TROCA'){
- data.forEach((item,index)=>{
- doc.text(`Feedback ${index+1}`,20,y);
- y += 10;
- doc.text(`Data: ${item.data}`,20,y);
- y += 8;
- const t = doc.splitTextToSize(`Trouxe: ${item.t}`,170);
- doc.text(t,20,y);
- y += t.length * 8;
- const r = doc.splitTextToSize(`Resultado: ${item.r}`,170);
- doc.text(r,20,y);
- y += r.length * 8;
- const o = doc.splitTextToSize(`Oportunidade: ${item.o}`,170);
- doc.text(o,20,y);
- y += o.length * 8;
- const ca = doc.splitTextToSize(`Correção/Ação: ${item.ca}`,170);
- doc.text(ca,20,y);
- y += ca.length * 8 + 12;
- });
- }
-
- doc.save(title + '.pdf');
-}
-
-function deleteTroca(index){
-troca.splice(index,1);
-saveData();
-renderTroca();
-}
-
-renderSmart();
-renderTasks();
-renderPlans();
-renderSwot();
-renderTroca();
-updateStats();
 </script>
 
 </body>

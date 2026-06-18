@@ -1,764 +1,754 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Testagem FLL</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LEGOTECH • Central de Testagem FLL</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
-body{
-background:#eef2ff;
-padding:25px;
-color:#1e1e1e;
-}
-
-.container{
-max-width:1300px;
-margin:auto;
-}
-
-.header{
-background:linear-gradient(135deg,#25115f,#4b2bbf);
-color:white;
-padding:35px;
-border-radius:28px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-margin-bottom:25px;
-}
-
-.header h1{
-font-size:48px;
-font-weight:700;
-margin-bottom:8px;
-}
-
-.header p{
-font-size:18px;
-opacity:0.9;
-}
-
-.header img{
-width:240px;
-object-fit:contain;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:22px;
-margin-bottom:20px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-}
-
-.card h2{
-color:#311b92;
-margin-bottom:18px;
-font-size:28px;
-}
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:18px;
-}
-
-.input-group{
-display:flex;
-flex-direction:column;
-}
-
-.input-group label{
-font-weight:600;
-margin-bottom:8px;
-}
-
-input, textarea, select{
-padding:13px;
-border-radius:12px;
-border:1px solid #c7c7c7;
-font-size:15px;
-}
-
-textarea{
-resize:vertical;
-min-height:100px;
-}
-
-.table-container{
-overflow-x:auto;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:15px;
-}
-
-th{
-background:#311b92;
-color:white;
-padding:15px;
-text-align:left;
-font-size:15px;
-}
-
-td{
-padding:14px;
-border-bottom:1px solid #ececec;
-}
-
-tr:hover{
-background:#f7f7ff;
-}
-
-.status{
-width:22px;
-height:22px;
-accent-color:#311b92;
-}
-
-.resultado{
-background:linear-gradient(135deg,#311b92,#5e35b1);
-color:white;
-padding:30px;
-border-radius:24px;
-text-align:center;
-margin-top:20px;
-box-shadow:0 8px 20px rgba(0,0,0,0.15);
-}
-
-.resultado h1{
-font-size:56px;
-margin-top:10px;
-}
-
-.botao{
-width:100%;
-padding:18px;
-border:none;
-border-radius:16px;
-background:#311b92;
-color:white;
-font-size:20px;
-font-weight:600;
-cursor:pointer;
-margin-top:20px;
-transition:0.3s;
-}
-
-.botao:hover{
-transform:translateY(-2px);
-background:#25115f;
-}
-
-.footer{
-text-align:center;
-margin-top:30px;
-color:#666;
-font-size:14px;
-}
-
-@media(max-width:900px){
-.header{
-flex-direction:column;
-text-align:center;
-gap:20px;
-}
-
-.header h1{
-font-size:34px;
-}
-
-.header img{
-width:180px;
-}
-}
-</style>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+        body{
+            background: linear-gradient(180deg, #f5f7ff, #e7ebff);
+            min-height:100vh;
+            padding:30px;
+            color:#1e293b;
+        }
+        .container{
+            max-width:1500px;
+            margin:auto;
+        }
+        .topbar{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:18px 25px;
+            background:white;
+            border-radius:18px;
+            margin-bottom:25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.08);
+            font-weight:600;
+        }
+        .header{
+            background: linear-gradient(135deg, #14073c, #311b92, #5b21b6);
+            padding:50px;
+            border-radius:32px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            position:relative;
+            overflow:hidden;
+            color:white;
+            margin-bottom:30px;
+            box-shadow: 0 20px 50px rgba(49,27,146,.25);
+        }
+        .header::before{
+            content:"";
+            position:absolute;
+            width:400px;
+            height:400px;
+            background:rgba(255,255,255,.08);
+            border-radius:50%;
+            right:-150px;
+            top:-150px;
+        }
+        .header h1{
+            font-size:55px;
+            font-weight:800;
+            margin-bottom:10px;
+        }
+        .header p{
+            font-size:18px;
+            opacity:.9;
+        }
+        .header img{
+            width:230px;
+            z-index:2;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,.3));
+        }
+        .dashboard{
+            display:grid;
+            grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+            gap:25px;
+            margin-bottom:30px;
+        }
+        .mini-card{
+            background:white;
+            padding:28px;
+            border-radius:25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,.08);
+            border-left:6px solid #311b92;
+        }
+        .mini-card h3{
+            color:#311b92;
+            margin-bottom:10px;
+        }
+        .mini-card p{
+            font-size:32px;
+            font-weight:700;
+        }
+        .card{
+            background:white;
+            padding:30px;
+            border-radius:28px;
+            margin-bottom:25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        }
+        .card h2{
+            color:#311b92;
+            font-size:30px;
+            margin-bottom:25px;
+        }
+        .grid{
+            display:grid;
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+            gap:20px;
+        }
+        .input-group{
+            display:flex;
+            flex-direction:column;
+        }
+        .input-group label{
+            font-weight:600;
+            margin-bottom:8px;
+        }
+        input, textarea{
+            padding:15px;
+            border:1px solid #d6d6d6;
+            border-radius:14px;
+            font-size:15px;
+            width: 100%;
+        }
+        input:focus, textarea:focus{
+            outline:none;
+            border-color:#311b92;
+            box-shadow: 0 0 0 4px rgba(49,27,146,.1);
+        }
+        textarea{
+            min-height:120px;
+            resize:vertical;
+        }
+        .table-container{
+            overflow-x:auto;
+        }
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        th{
+            background:#311b92;
+            color:white;
+            padding:18px;
+        }
+        td{
+            padding:16px;
+            border-bottom:1px solid #ececec;
+        }
+        tr:hover{
+            background:#f8f9ff;
+        }
+        .status{
+            width:22px;
+            height:22px;
+            accent-color:#311b92;
+        }
+        .resultado{
+            background: linear-gradient(135deg, #311b92, #5b21b6);
+            padding:35px;
+            border-radius:30px;
+            color:white;
+            text-align:center;
+            margin-bottom: 25px;
+        }
+        .resultado h1{
+            font-size:80px;
+        }
+        .botao{
+            width:100%;
+            padding:18px;
+            border:none;
+            border-radius:18px;
+            background:#311b92;
+            color:white;
+            font-size:20px;
+            font-weight:700;
+            cursor:pointer;
+            margin-top:25px;
+            transition: background 0.2s;
+        }
+        .botao:hover{
+            background: #23136d;
+        }
+        .footer{
+            text-align:center;
+            padding:30px;
+            opacity:.7;
+            font-weight:600;
+        }
+        @media(max-width:900px){
+            body{ padding:18px; }
+            .topbar{ flex-direction:column; gap:10px; }
+            .header{ flex-direction:column; text-align:center; gap:30px; }
+            .header h1{ font-size:40px; }
+            .header img{ width:180px; }
+        }
+    </style>
 </head>
 <body>
 
 <div class="container">
 
-<div class="header">
-<div>
-<h1>🚀 Testagem do Robô - FLL</h1>
-<p>Sistema profissional de avaliação técnica da equipe.</p>
-</div>
-
-<img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png" alt="Lego Tech">
-</div>
-
-<div class="card">
-<h2>📋 Informações Gerais</h2>
-
-<div class="grid">
-<div class="input-group">
-<label>Nome do avaliador</label>
-<input type="text" id="avaliador">
-</div>
-
-<div class="input-group">
-<label>Data</label>
-<input type="date" id="data">
-</div>
-
-<div class="input-group">
-<label>Missão testada</label>
-<input type="text" id="missao">
-</div>
-
-<div class="input-group">
-<label>Versão do robô</label>
-<input type="text" id="versao">
-</div>
-</div>
-</div>
-
-<!-- ================= TRAÇÃO ================= -->
-
-<div class="card">
-<h2>⚙️ Tração</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Teste realizado</th>
-<th>Resultado</th>
-<th>Observações</th>
-<th>Status</th>
-</tr>
-
-<tr>
-<td>Movimento reto</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Curvas</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Aceleração</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Precisão</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Derrapagem</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= ENGRENAGENS ================= -->
-
-<div class="card">
-<h2>⚙️ Engrenagens</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Componente</th>
-<th>Funcionamento</th>
-<th>Problema identificado</th>
-<th>Necessita ajuste?</th>
-</tr>
-
-<tr>
-<td>Engrenagem pequena</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Engrenagem média</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Engrenagem grande</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Torque</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Velocidade</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Alinhamento</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= ADERÊNCIA ================= -->
-
-<div class="card">
-<h2>🛞 Aderência ao Tapete</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Situação</th>
-<th>Comportamento do robô</th>
-<th>Resultado</th>
-
-</tr>
-
-<tr>
-<td>Curva rápida</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Frenagem</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Arrancada</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Controle no tapete</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= MANUTENÇÃO ================= -->
-
-<div class="card">
-<h2>🔧 Manutenção</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Item analisado</th>
-<th>Fácil</th>
-<th>Difícil</th>
-<th>Observações</th>
-</tr>
-
-<tr>
-<td>Troca de módulos</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Organização dos cabos</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Acesso aos sensores</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Desmontagem</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= ROBUSTEZ ================= -->
-
-<div class="card">
-<h2>🧱 Robustez</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Teste</th>
-<th>Aprovado</th>
-<th>Reprovado</th>
-<th>Observações</th>
-</tr>
-
-<tr>
-<td>Colisão leve</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Estrutura principal</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Sensores</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Rodas</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Módulos</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= SENSOR ================= -->
-
-<div class="card">
-<h2>🎨 Sensor de Cor</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Teste</th>
-<th>Altura utilizada</th>
-<th>Observações</th>
-<th>Resultado</th>
-</tr>
-
-<tr>
-<td>Leitura do preto</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Leitura do branco</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Segue linha</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Velocidade de leitura</td>
-<td><input type="text"></td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= ENCAIXE ================= -->
-
-<div class="card">
-<h2>🧩 Encaixe dos Módulos</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Item</th>
-<th>Firme</th>
-<th>Com folga</th>
-<th>Observações</th>
-</tr>
-
-<tr>
-<td>Encaixe rápido</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Alinhamento</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Fixação</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-
-<tr>
-<td>Troca de módulos</td>
-<td><input class="status pontuavel" type="checkbox"></td>
-<td><input class="status" type="checkbox"></td>
-<td><input type="text"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= ESTABILIDADE ================= -->
-
-<div class="card">
-<h2>⚖️ Estabilidade</h2>
-
-<div class="table-container">
-<table>
-<tr>
-<th>Situação</th>
-<th>Comportamento do robô</th>
-<th>Estável?</th>
-</tr>
-
-<tr>
-<td>Curvas rápidas</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Frenagem</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Distribuição de peso</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-
-<tr>
-<td>Vibração</td>
-<td><input type="text"></td>
-<td><input class="status pontuavel" type="checkbox"></td>
-</tr>
-</table>
-</div>
-</div>
-
-<!-- ================= RESULTADO ================= -->
-
-<div class="resultado">
-<h2>🏆 Resultado Geral</h2>
-
-<h1 id="pontuacao">0</h1>
-
-<p>Pontuação Final</p>
-
-<p>Total máximo: 36 pontos</p>
-</div>
-
-
-<div class="card">
-<h2>🛠️ Observações Finais</h2>
-
-<div class="input-group">
-<label>Problemas encontrados</label>
-<textarea id="problemas"></textarea>
-</div>
-
-<br>
-
-<div class="input-group">
-<label>Melhorias sugeridas</label>
-<textarea id="melhorias"></textarea>
-</div>
-
-<button class="botao" onclick="gerarPDF()">📄 Gerar Relatório Profissional</button>
-</div>
-
-<div class="footer">
-<p>Lego Tech • Sistema de Testagem FLL</p>
-</div>
+    <div class="topbar">
+        <div>🟢 Sistema Online</div>
+        <div id="dataAtual"></div>
+    </div>
+
+    <div class="header">
+        <div>
+            <h1>🧪 Central de Testagem</h1>
+            <p>LEGOTECH • Engenharia FLL</p>
+        </div>
+        <img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png" alt="Logo">
+    </div>
+
+    <div class="dashboard">
+        <div class="mini-card">
+            <h3>🏆 Pontuação</h3>
+            <p id="pontuacaoDashboard">0</p>
+        </div>
+        <div class="mini-card">
+            <h3>✅ Concluídos</h3>
+            <p id="itensConcluidos">0</p>
+        </div>
+        <div class="mini-card">
+            <h3>📈 Aproveitamento</h3>
+            <p id="aproveitamento">0%</p>
+        </div>
+        <div class="mini-card">
+            <h3>🤖 Status</h3>
+            <p id="statusRobo">Teste</p>
+        </div>
+        <span id="classificacao" style="display:none;"></span>
+        <span id="aprovadosResumo" style="display:none;"></span>
+        <span id="pendentesResumo" style="display:none;"></span>
+        <span id="desempenhoResumo" style="display:none;"></span>
+    </div>
+
+    <div class="card">
+        <h2>📈 Progresso da Avaliação</h2>
+        <div style="width:100%; height:30px; background:#e5e7eb; border-radius:50px; overflow:hidden;">
+            <div id="barraProgresso" style="width:0%; height:100%; background: linear-gradient(90deg, #311b92, #7c3aed); transition:.4s;"></div>
+        </div>
+        <br>
+        <h3 style="text-align:center; color:#311b92;">
+            <span id="porcentagem">0%</span> Concluído
+        </h3>
+    </div>
+
+    <div class="card">
+        <h2>📋 Informações Gerais da Testagem</h2>
+        <div class="grid">
+            <div class="input-group">
+                <label>👨‍🔧 Nome do avaliador</label>
+                <input type="text" id="avaliador" placeholder="Digite o nome">
+            </div>
+            <div class="input-group">
+                <label>📅 Data</label>
+                <input type="date" id="data">
+            </div>
+            <div class="input-group">
+                <label>🎯 Missão testada</label>
+                <input type="text" id="missao" placeholder="Ex: Missão 08">
+            </div>
+            <div class="input-group">
+                <label>🤖 Versão do robô</label>
+                <input type="text" id="versao" placeholder="Ex: V3.2">
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⚙️ Tração</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Teste</th>
+                    <th>Resultado</th>
+                    <th>Observações</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Movimento reto</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Curvas</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Aceleração</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Precisão</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Derrapagem</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⚙️ Engrenagens</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Componente</th>
+                    <th>Funcionamento</th>
+                    <th>Problema identificado</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Engrenagem pequena</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Engrenagem média</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Engrenagem grande</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Torque</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Velocidade</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Alinhamento</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🛞 Aderência ao Tapete</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Situação</th>
+                    <th>Comportamento do robô</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Curva rápida</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Frenagem</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Arrancada</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Controle no tapete</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🔧 Manutenção</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Item analisado</th>
+                    <th>Fácil</th>
+                    <th>Difícil</th>
+                    <th>Observações</th>
+                </tr>
+                <tr>
+                    <td>Troca de módulos</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Organização dos cabos</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Acesso aos sensores</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Desmontagem</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🧱 Robustez</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Teste</th>
+                    <th>Aprovado</th>
+                    <th>Reprovado</th>
+                    <th>Observações</th>
+                </tr>
+                <tr>
+                    <td>Colisão leve</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Estrutura principal</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Sensores</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Rodas</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Módulos</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🎨 Sensor de Cor</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Teste</th>
+                    <th>Altura utilizada</th>
+                    <th>Observações</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>Leitura do preto</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Leitura do branco</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Segue linha</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Velocidade de leitura</td>
+                    <td><input type="text"></td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>🧩 Encaixe dos Módulos</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Firme</th>
+                    <th>Com folga</th>
+                    <th>Observações</th>
+                </tr>
+                <tr>
+                    <td>Encaixe rápido</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Alinhamento</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Fixação</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+                <tr>
+                    <td>Troca de módulos</td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                    <td><input class="status" type="checkbox"></td>
+                    <td><input type="text"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>⚖️ Estabilidade</h2>
+        <div class="table-container">
+            <table>
+                <tr>
+                    <th>Situação</th>
+                    <th>Comportamento do robô</th>
+                    <th>Estável?</th>
+                </tr>
+                <tr>
+                    <td>Curvas rápidas</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Frenagem</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Distribuição de peso</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+                <tr>
+                    <td>Vibração</td>
+                    <td><input type="text"></td>
+                    <td><input class="status pontuavel" type="checkbox"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>📝 Anotações Finais para o PDF</h2>
+        <div class="grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="input-group">
+                <label>⚠️ Problemas Encontrados</label>
+                <textarea id="problemas" placeholder="Descreva aqui os problemas identificados nos testes..."></textarea>
+            </div>
+            <div class="input-group">
+                <label>💡 Melhorias Sugeridas</label>
+                <textarea id="melhorias" placeholder="Descreva as sugestões de melhorias estruturais ou de código..."></textarea>
+            </div>
+        </div>
+        <button class="botao" onclick="gerarPDF()">📄 Salvar Informações e Gerar PDF</button>
+    </div>
+
+    <div class="footer">
+        LEGOTECH • Engenharia FLL © 2026
+    </div>
 
 </div>
 
 <script>
-function atualizarPontuacao(){
-const checks=document.querySelectorAll('.pontuavel');
-let total=0;
-
-checks.forEach(c=>{
-if(c.checked){
-total++;
-}
+const dataAtual = document.getElementById('dataAtual');
+const hoje = new Date();
+dataAtual.innerHTML = hoje.toLocaleDateString('pt-BR', {
+    weekday:'long', day:'2-digit', month:'long', year:'numeric'
 });
 
-document.getElementById('pontuacao').innerText=total;
+function atualizarSistema(){
+    const checks = document.querySelectorAll('.pontuavel');
+    const totalItens = checks.length;
+    let aprovados = 0;
+
+    checks.forEach(item=>{
+        if(item.checked){
+            aprovados++;
+        }
+    });
+
+    const porcentagem = totalItens > 0 ? Math.round((aprovados/totalItens)*100) : 0;
+
+    document.getElementById('pontuacaoDashboard').innerText = aprovados;
+    document.getElementById('itensConcluidos').innerText = aprovados + "/" + totalItens;
+    document.getElementById('aproveitamento').innerText = porcentagem + "%";
+
+    // Elementos de texto auxiliares (usados pelo gerador de PDF)
+    document.getElementById('aprovadosResumo').innerText = aprovados;
+    document.getElementById('pendentesResumo').innerText = totalItens - aprovados;
+    document.getElementById('desempenhoResumo').innerText = porcentagem + "%";
+    document.getElementById('porcentagem').innerText = porcentagem + "%";
+    
+    // Atualização das Barras de Progresso visíveis
+    document.getElementById('barraProgresso').style.width = porcentagem + "%";
+
+    if(porcentagem >= 90){
+        document.getElementById('statusRobo').innerText = 'Excelente';
+        document.getElementById('classificacao').innerText = '🏆 Competitivo';
+    } else if(porcentagem >= 75){
+        document.getElementById('statusRobo').innerText = 'Muito Bom';
+        document.getElementById('classificacao').innerText = '🥇 Forte';
+    } else if(porcentagem >= 50){
+        document.getElementById('statusRobo').innerText = 'Bom';
+        document.getElementById('classificacao').innerText = '🥈 Evoluindo';
+    } else {
+        document.getElementById('statusRobo').innerText = 'Ajustando';
+        document.getElementById('classificacao').innerText = '🔧 Melhorar';
+    }
 }
 
-setInterval(atualizarPontuacao,300);
+document.addEventListener('change', atualizarSistema);
+atualizarSistema();
 
 async function gerarPDF(){
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-let y=20;
+    const avaliador = document.getElementById('avaliador').value || 'Não informado';
+    const data = document.getElementById('data').value || 'Não informada';
+    const missao = document.getElementById('missao').value || 'Não informada';
+    const versao = document.getElementById('versao').value || 'Não informada';
+    const problemas = document.getElementById('problemas').value || 'Nenhum problema informado';
+    const melhorias = document.getElementById('melhorias').value || 'Nenhuma melhoria informada';
+    
+    const pontuacao = document.getElementById('pontuacaoDashboard').innerText;
+    const desempenho = document.getElementById('desempenhoResumo').innerText;
 
-function titulo(txt){
-doc.setFontSize(20);
-doc.setTextColor(49,27,146);
-doc.text(txt,20,y);
-y+=10;
-}
+    let y = 20;
 
-function texto(txt){
-doc.setFontSize(11);
-doc.setTextColor(40,40,40);
-const linhas=doc.splitTextToSize(txt,170);
-linhas.forEach(l=>{
-if(y>270){
-doc.addPage();
-y=20;
-}
-doc.text(l,20,y);
-y+=7;
-});
-}
+    // CABEÇALHO
+    doc.setFillColor(49,27,146);
+    doc.rect(0,0,220,35,'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(22);
+    doc.text('LEGOTECH • Relatório Oficial FLL',20,22);
 
-// CABEÇALHO
+    y = 55;
 
-doc.setFillColor(49,27,146);
-doc.rect(0,0,220,35,'F');
+    // INFORMAÇÕES
+    doc.setTextColor(49,27,146);
+    doc.setFontSize(18);
+    doc.text('Informações Gerais',20,y);
+    y += 12;
 
-doc.setTextColor(255,255,255);
-doc.setFontSize(24);
-doc.text('Relatório de Testagem - FLL',20,22);
+    doc.setTextColor(30,30,30);
+    doc.setFontSize(12);
+    doc.text('Avaliador: ' + avaliador,20,y); y += 8;
+    doc.text('Data: ' + data,20,y); y += 8;
+    doc.text('Missão: ' + missao,20,y); y += 8;
+    doc.text('Versão do robô: ' + versao,20,y); y += 20;
 
+    // RESULTADO
+    doc.setFillColor(238,242,255);
+    doc.roundedRect(20,y,170,30,6,6,'F');
+    doc.setTextColor(49,27,146);
+    doc.setFontSize(18);
+    doc.text('Pontos Concluídos: ' + pontuacao,30,y+12);
+    doc.text('Aproveitamento: ' + desempenho,30,y+22);
+    y += 50;
 
-y=50;
+    // PROBLEMAS
+    doc.setFontSize(18);
+    doc.text('Problemas Encontrados',20,y);
+    y += 10;
+    doc.setFontSize(12);
+    const problemasLinhas = doc.splitTextToSize(problemas, 170);
+    doc.text(problemasLinhas, 20, y);
+    y += problemasLinhas.length * 7 + 15;
 
-// INFORMAÇÕES
+    // MELHORIAS
+    doc.setFontSize(18);
+    doc.text('Melhorias Sugeridas',20,y);
+    y += 10;
+    doc.setFontSize(12);
+    const melhoriasLinhas = doc.splitTextToSize(melhorias, 170);
+    doc.text(melhoriasLinhas, 20, y);
+    y += melhoriasLinhas.length * 7 + 20;
 
-titulo('Informações Gerais');
+    // RODAPÉ
+    doc.setFontSize(10);
+    doc.setTextColor(120,120,120);
+    doc.text('LEGOTECH • Sistema Oficial de Engenharia FLL', 20, 290);
 
-texto('Avaliador: '+document.getElementById('avaliador').value);
-texto('Data: '+document.getElementById('data').value);
-texto('Missão: '+document.getElementById('missao').value);
-texto('Versão do robô: '+document.getElementById('versao').value);
+    // SALVAR HISTÓRICO NO LOCALSTORAGE
+    let relatorios = JSON.parse(localStorage.getItem('relatorios')) || [];
+    relatorios.push({
+        data: data,
+        avaliador: avaliador,
+        missao: missao,
+        versao: versao,
+        pontuacao: pontuacao,
+        desempenho: desempenho
+    });
+    localStorage.setItem('relatorios', JSON.stringify(relatorios));
 
-// RESULTADO
-
-y+=10;
-
-doc.setFillColor(238,242,255);
-doc.roundedRect(20,y,170,25,5,5,'F');
-
-
-doc.setTextColor(49,27,146);
-doc.setFontSize(18);
-doc.text('Pontuação Final: '+document.getElementById('pontuacao').innerText+' pontos',30,y+16);
-
-y+=40;
-
-// OBSERVAÇÕES
-
-titulo('Problemas Encontrados');
-texto(document.getElementById('problemas').value || 'Nenhum problema informado.');
-
-y+=5;
-
-titulo('Melhorias Sugeridas');
-texto(document.getElementById('melhorias').value || 'Nenhuma melhoria informada.');
-
-// TABELA RESUMO
-
-y+=10;
-
-titulo('Resumo Técnico');
-
-const checks=document.querySelectorAll('.pontuavel');
-let aprovados=0;
-
-checks.forEach(c=>{
-if(c.checked){
-aprovados++;
-}
-});
-
-texto('Total de verificações aprovadas: '+aprovados);
-texto('Sistema gerado automaticamente pelo sistema Lego Tech FLL.');
-
-// RODAPÉ
-
-doc.setFontSize(10);
-doc.setTextColor(120,120,120);
-doc.text('Lego Tech • Relatório Oficial de Testagem',20,290);
-
-
-doc.save('Relatorio_FLL.pdf');
+    // BAIXAR PDF
+    doc.save('Relatorio_LEGOTECH_FLL.pdf');
 }
 </script>
 

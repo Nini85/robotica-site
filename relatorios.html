@@ -4,100 +4,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Relatórios • LEGO TECH</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+/* ===== SEU CSS (mantido igual) ===== */
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body{
-background:#eef2ff;
-padding:30px;
-color:#1e1e1e;
-}
+body{background:#eef2ff;padding:30px;color:#1e1e1e;}
 
-.container{
-max-width:1200px;
-margin:auto;
-}
+.container{max-width:1300px;margin:auto;}
 
 .header{
 background:linear-gradient(135deg,#25115f,#4b2bbf);
 padding:35px;
 border-radius:28px;
-color:white;
 display:flex;
 justify-content:space-between;
 align-items:center;
+color:white;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
 margin-bottom:30px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
 }
 
-.header h1{
-font-size:42px;
-margin-bottom:10px;
-}
-
-.header p{
-opacity:0.9;
-font-size:17px;
-}
-
-.header img{
-width:180px;
-}
+.header h1{font-size:42px;margin-bottom:10px;}
+.header p{font-size:18px;opacity:.9;}
+.header img{width:220px;}
 
 .topbar{
 display:flex;
-justify-content:space-between;
-align-items:center;
+gap:20px;
 margin-bottom:25px;
-gap:15px;
 flex-wrap:wrap;
 }
 
-.input-busca{
-flex:1;
-min-width:250px;
-}
-
+.input-busca{flex:1;min-width:300px;}
 .input-busca input{
 width:100%;
-padding:14px;
+padding:16px;
 border:none;
-border-radius:14px;
+border-radius:16px;
 font-size:16px;
-box-shadow:0 5px 15px rgba(0,0,0,0.08);
+box-shadow:0 5px 15px rgba(0,0,0,.08);
 }
 
 .botao-limpar{
+padding:16px 25px;
+border:none;
+border-radius:16px;
 background:#d32f2f;
 color:white;
-border:none;
-padding:14px 22px;
-border-radius:14px;
-cursor:pointer;
-font-size:15px;
 font-weight:600;
-transition:0.3s;
-}
-
-.botao-limpar:hover{
-background:#b71c1c;
+cursor:pointer;
 }
 
 .grid{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(360px,1fr));
 gap:20px;
 }
 
@@ -105,99 +71,42 @@ gap:20px;
 background:white;
 padding:25px;
 border-radius:24px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-transition:0.3s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-}
-
-.card h2{
-color:#311b92;
-margin-bottom:10px;
-font-size:28px;
-}
-
-.info{
-margin-top:15px;
-line-height:2;
-}
-
-.tag{
-display:inline-block;
-background:#ede7ff;
-color:#311b92;
-padding:8px 14px;
-border-radius:30px;
-font-size:14px;
-font-weight:600;
-margin-top:12px;
-}
-
-.botoes{
-display:flex;
-gap:12px;
-margin-top:20px;
-flex-wrap:wrap;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
 }
 
 .btn{
-flex:1;
+padding:14px;
 border:none;
-padding:13px;
-border-radius:12px;
+border-radius:14px;
 cursor:pointer;
 font-weight:600;
-transition:0.3s;
 }
 
-.btn-abrir{
-background:#311b92;
-color:white;
-}
+.btn-abrir{background:#311b92;color:white;}
+.btn-excluir{background:#ef5350;color:white;}
 
-.btn-abrir:hover{
-background:#25115f;
-}
-
-.btn-excluir{
-background:#ef5350;
-color:white;
-}
-
-.btn-excluir:hover{
-background:#d32f2f;
-}
-
-.vazio{
+.upload-box{
 background:white;
-padding:40px;
+padding:25px;
 border-radius:24px;
-text-align:center;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
+margin-bottom:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
 }
 
-.footer{
-text-align:center;
-margin-top:40px;
-opacity:0.7;
+.upload-box input{
+margin-top:10px;
 }
 
-@media(max-width:800px){
-
-.header{
-flex-direction:column;
-text-align:center;
-gap:20px;
+.upload-btn{
+margin-top:15px;
+background:#00a86b;
+color:white;
+padding:14px;
+border:none;
+border-radius:14px;
+cursor:pointer;
+font-weight:600;
 }
-
-.header h1{
-font-size:34px;
-}
-
-}
-
 </style>
 </head>
 
@@ -205,252 +114,151 @@ font-size:34px;
 
 <div class="container">
 
-<!-- HEADER -->
-
 <div class="header">
-
 <div>
 <h1>📄 Relatórios</h1>
-<p>Histórico oficial de testagens da equipe LEGO TECH.</p>
+<p>Histórico oficial da equipe LEGO TECH.</p>
 </div>
-
 <img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png">
-
 </div>
 
-<!-- TOPO -->
+<!-- 🔥 NOVA ABA: UPLOAD MANUAL -->
+<div class="upload-box">
+<h2>📤 Adicionar PDF manual</h2>
+
+<input type="file" id="pdfInput" accept="application/pdf">
+<br>
+
+<button class="upload-btn" id="uploadBtn">
+Salvar PDF
+</button>
+</div>
 
 <div class="topbar">
 
 <div class="input-busca">
-<input
-type="text"
-id="busca"
-placeholder="Pesquisar relatório..."
-onkeyup="filtrarRelatorios()"
->
+<input id="busca" placeholder="Pesquisar relatório...">
 </div>
 
-<button
-class="botao-limpar"
-onclick="limparRelatorios()"
->
-🗑 Limpar tudo
+<button class="botao-limpar" id="limparTudo">
+🗑 Limpar Tudo
 </button>
 
 </div>
 
-<!-- LISTA -->
-
-<div class="grid" id="lista-relatorios">
-
-</div>
-
-<!-- FOOTER -->
-
-<div class="footer">
-LEGO TECH • Sistema Oficial FLL
-</div>
+<div class="grid" id="lista-relatorios"></div>
 
 </div>
 
 <script>
 
-const lista =
-document.getElementById(
-'lista-relatorios'
-);
+const lista = document.getElementById('lista-relatorios');
+const busca = document.getElementById('busca');
+const pdfInput = document.getElementById('pdfInput');
 
 let relatorios =
-JSON.parse(
-localStorage.getItem('relatorios')
-) || [];
+JSON.parse(localStorage.getItem('relatorios_legotech')) || [];
 
-function renderizarRelatorios(){
-
-lista.innerHTML = '';
-
-if(relatorios.length === 0){
-
-lista.innerHTML = `
-
-<div class="vazio">
-
-<h2>
-Nenhum relatório salvo
-</h2>
-
-<p style="margin-top:10px;">
-Os relatórios aparecerão aqui
-após serem salvos.
-</p>
-
-</div>
-
-`;
-
-return;
-
+function salvarLocal(){
+localStorage.setItem('relatorios_legotech', JSON.stringify(relatorios));
 }
 
-relatorios
-.slice()
-.reverse()
-.forEach((relatorio,index)=>{
+function renderizar(){
 
-lista.innerHTML += `
+lista.innerHTML='';
 
+if(relatorios.length===0){
+lista.innerHTML=`
 <div class="card">
+<h2>Nenhum relatório salvo</h2>
+</div>`;
+return;
+}
 
-<h2>
-🧪 Teste ${relatorio.data}
-</h2>
+relatorios.slice().reverse().forEach((r,index)=>{
 
-<div class="tag">
-Pontuação:
-${relatorio.pontuacao}
-pontos
+lista.innerHTML+=`
+<div class="card">
+<h2>📄 ${r.nome || 'Relatório FLL'}</h2>
+
+<p>📅 ${r.data || '-'}</p>
+
+<div style="margin-top:15px;display:flex;gap:10px;flex-wrap:wrap;">
+<button class="btn btn-abrir" onclick="abrir(${index})">📂 Abrir</button>
+<button class="btn btn-excluir" onclick="excluir(${index})">🗑 Excluir</button>
 </div>
 
-<div class="info">
-
-<p>
-📅 <strong>Data:</strong>
-${relatorio.data}
-</p>
-
-<p>
-🏆 <strong>Pontuação:</strong>
-${relatorio.pontuacao}
-</p>
-
-</div>
-
-<div class="botoes">
-
-<button
-class="btn btn-abrir"
-onclick="abrirRelatorio(${index})"
->
-📂 Abrir
-</button>
-
-<button
-class="btn btn-excluir"
-onclick="excluirRelatorio(${index})"
->
-🗑 Excluir
-</button>
-
-</div>
-
-</div>
-
-`;
-
+</div>`;
 });
 
 }
 
-function abrirRelatorio(index){
-
-const relatorio =
-relatorios
-.slice()
-.reverse()[index];
-
-alert(
-
-`RELATÓRIO\n\n` +
-
-`📅 Data: ${relatorio.data}\n` +
-
-`🏆 Pontuação: ${relatorio.pontuacao} pontos`
-
-);
-
+function abrir(index){
+const r = relatorios.slice().reverse()[index];
+window.open(r.arquivo, '_blank');
 }
 
-function excluirRelatorio(index){
+function excluir(index){
+if(!confirm("Excluir?")) return;
 
-const confirmacao =
-confirm(
-'Deseja excluir este relatório?'
-);
-
-if(confirmacao){
-
-const invertido =
-relatorios.slice().reverse();
-
+let invertido = relatorios.slice().reverse();
 invertido.splice(index,1);
+relatorios = invertido.reverse();
 
-relatorios =
-invertido.reverse();
-
-localStorage.setItem(
-'relatorios',
-JSON.stringify(relatorios)
-);
-
-renderizarRelatorios();
-
+salvarLocal();
+renderizar();
 }
 
+// 🔥 UPLOAD MANUAL DE PDF
+document.getElementById('uploadBtn').onclick = () => {
+
+const file = pdfInput.files[0];
+if(!file){
+alert("Selecione um PDF!");
+return;
 }
 
-function limparRelatorios(){
+const reader = new FileReader();
 
-const confirmacao =
-confirm(
-'Deseja apagar TODOS os relatórios?'
-);
+reader.onload = function(){
 
-if(confirmacao){
-
-localStorage.removeItem(
-'relatorios'
-);
-
-relatorios = [];
-
-renderizarRelatorios();
-
-}
-
-}
-
-function filtrarRelatorios(){
-
-const pesquisa =
-document
-.getElementById('busca')
-.value
-.toLowerCase();
-
-const cards =
-document.querySelectorAll('.card');
-
-cards.forEach(card=>{
-
-const texto =
-card.innerText.toLowerCase();
-
-if(texto.includes(pesquisa)){
-
-card.style.display='block';
-
-}else{
-
-card.style.display='none';
-
-}
-
+relatorios.push({
+nome: file.name,
+data: new Date().toLocaleString('pt-BR'),
+arquivo: reader.result
 });
 
-}
+salvarLocal();
+renderizar();
 
-renderizarRelatorios();
+alert("PDF salvo com sucesso!");
+};
+
+reader.readAsDataURL(file);
+};
+
+// limpar tudo
+document.getElementById('limparTudo').onclick = () => {
+if(confirm("Apagar tudo?")){
+localStorage.removeItem('relatorios_legotech');
+relatorios = [];
+renderizar();
+}
+};
+
+// busca
+busca.addEventListener('input', () => {
+const valor = busca.value.toLowerCase();
+
+document.querySelectorAll('.card').forEach(card=>{
+card.style.display =
+card.innerText.toLowerCase().includes(valor)
+? 'block'
+: 'none';
+});
+});
+
+renderizar();
 
 </script>
 

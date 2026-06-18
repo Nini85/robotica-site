@@ -1,0 +1,24 @@
+{
+  "name": "site-testagem-robo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "firebase.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nini85/robotica-site.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Nini85/robotica-site/issues"
+  },
+  "homepage": "https://github.com/Nini85/robotica-site#readme",
+  "dependencies": {
+    "firebase": "^12.13.0"
+  }
+}
