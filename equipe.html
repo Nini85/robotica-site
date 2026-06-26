@@ -2,249 +2,254 @@
 <html lang="pt-BR">
 
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Equipe • LEGO TECH</title>
+    <title>Equipe • LEGO TECH</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
+        body {
+            background: #eef2ff;
+            padding: 30px;
+            color: #1e1e1e;
+        }
 
-body{
-background:#eef2ff;
-padding:30px;
-color:#1e1e1e;
-}
+        .container {
+            max-width: 1300px;
+            margin: auto;
+        }
 
-.container{
-max-width:1300px;
-margin:auto;
-}
+        .header {
+            background: linear-gradient(135deg, #25115f, #4b2bbf);
+            padding: 35px;
+            border-radius: 28px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
 
-.header{
-background:linear-gradient(135deg,#25115f,#4b2bbf);
-padding:35px;
-border-radius:28px;
-color:white;
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:35px;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
+        .header h1 {
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
 
-.header h1{
-font-size:45px;
-margin-bottom:10px;
-}
+        .header p {
+            font-size: 17px;
+            opacity: 0.9;
+        }
 
-.header p{
-font-size:17px;
-opacity:0.9;
-}
+        .header img {
+            width: 180px;
+            height: auto;
+            object-fit: contain; /* Garante que o logo não distorça */
+        }
 
-.header img{
-width:180px;
-}
+        /* GRID UNIFICADO: Todos os cartões no mesmo container para alinhar perfeitamente */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:25px;
-}
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 24px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-.card{
-background:white;
-padding:25px;
-border-radius:24px;
-box-shadow:0 8px 25px rgba(0,0,0,0.08);
-text-align:center;
-transition:0.3s;
-}
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-.card:hover{
-transform:translateY(-5px);
-}
+        .foto {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #dcdcff;
+            margin-bottom: 20px;
+            border: 6px solid #ede7ff;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+            
+            /* Mantém a imagem perfeitamente centralizada */
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
 
-.foto{
-width:170px;
-height:170px;
-border-radius:50%;
-margin:auto;
-overflow:hidden;
-background:#dcdcff;
-display:flex;
-align-items:center;
-justify-content:center;
-margin-bottom:20px;
-border:6px solid #ede7ff;
-}
+        /* CORREÇÃO DAS IMAGENS TRONXAS */
+        .foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Corta as bordas sem esticar ou amassar o rosto */
+            object-position: center; /* Foca no centro da foto */
+        }
 
-.foto img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
+        .nome {
+            font-size: 26px;
+            font-weight: 700;
+            color: #311b92;
+            margin-bottom: 10px;
+        }
 
-.nome{
-font-size:28px;
-font-weight:700;
-color:#311b92;
-margin-bottom:10px;
-}
+        .funcao {
+            background: #ede7ff;
+            display: inline-block;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #311b92;
+            margin-top: auto; /* Alinha os botões embaixo se os nomes variarem de tamanho */
+        }
 
-.funcao{
-background:#ede7ff;
-display:inline-block;
-padding:8px 18px;
-border-radius:30px;
-font-size:15px;
-font-weight:600;
-color:#311b92;
-}
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            opacity: 0.7;
+        }
 
-.footer{
-text-align:center;
-margin-top:40px;
-opacity:0.7;
-}
+        @media(max-width:800px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
 
-@media(max-width:800px){
+            .header h1 {
+                font-size: 36px;
+            }
 
-.header{
-flex-direction:column;
-text-align:center;
-gap:20px;
-}
-
-.header h1{
-font-size:36px;
-}
-
-.header img{
-width:150px;
-}
-
-}
-
-</style>
+            .header img {
+                width: 150px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<!-- HEADER -->
+        <div class="header">
+            <div>
+                <h1>👥 Equipe LEGO TECH</h1>
+                <p>Integrantes oficiais da equipe FLL.</p>
+            </div>
+            <img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png" alt="Logo LEGO TECH">
+        </div>
 
-<div class="header">
+        <div class="grid">
 
-<div>
-<h1>👥 Equipe LEGO TECH</h1>
-<p>Integrantes oficiais da equipe FLL.</p>
-</div>
+            <div class="card">
+                <div class="foto">
+                    <img src="alan.jpeg" alt="Alan">
+                </div>
+                <div class="nome">Alan</div>
+                <div class="funcao">Técnico</div>
+            </div>
 
-<img src="WhatsApp_Image_2026-01-27_at_14.16.23-removebg-preview.png">
+            <div class="card">
+                <div class="foto">
+                    <img src="duda.jpeg" alt="Eduarda">
+                </div>
+                <div class="nome">Eduarda</div>
+                <div class="funcao">Técnica</div>
+            </div>
 
-</div>
+            <div class="card">
+                <div class="foto">
+                    <img src="nicolas.jpeg" alt="Nicolas">
+                </div>
+                <div class="nome">Nicolas</div>
+                <div class="funcao">Mentor <br>(Design do robô)</div>
+            </div>
 
-<!-- GRID -->
+            <div class="card">
+                <div class="foto">
+                    <img src="Helo.jpeg" alt="Helo">
+                </div>
+                <div class="nome">Helo</div>
+                <div class="funcao">Mentora <br>(Projeto/Core Values)</div>
+            </div>
 
-<div class="grid">
+            <div class="card">
+                <div class="foto">
+                    <img src="Katharina.jpeg" alt="Katharina">
+                </div>
+                <div class="nome">Katharina</div>
+                <div class="funcao">Projeto de Inovação</div>
+            </div>
 
-<!-- ALAN -->
+            <div class="card">
+                <div class="foto">
+                    <img src="lara.jpeg" alt="Lara">
+                </div>
+                <div class="nome">Lara</div>
+                <div class="funcao">Projeto de Inovação</div>
+            </div>
 
-<div class="card">
+            <div class="card">
+                <div class="foto">
+                    <img src="maria leticia.jpeg" alt="Maria Letícia">
+                </div>
+                <div class="nome">Maria Letícia</div>
+                <div class="funcao">Projeto de Inovação</div>
+            </div>
 
-<div class="foto">
-<img src="alan.jpeg">
-</div>
+            <div class="card">
+                <div class="foto">
+                    <img src="arthur.jpeg" alt="Arthur">
+                </div>
+                <div class="nome">Arthur</div>
+                <div class="funcao">Design do Robô</div>
+            </div>
 
-<div class="nome">
-Alan
-</div>
+            <div class="card">
+                <div class="foto">
+                    <img src="isaac.jpeg" alt="Isaac">
+                </div>
+                <div class="nome">Isaac</div>
+                <div class="funcao">Design do Robô</div>
+            </div>
 
-<div class="funcao">
-Técnico
-</div>
+            <div class="card">
+                <div class="foto">
+                    <img src="anny.jpeg" alt="Anny">
+                </div>
+                <div class="nome">Anny</div>
+                <div class="funcao">Design do Robô</div>
+            </div>
 
-</div>
+        </div>
 
-<!-- EDUARDA -->
+        <div class="footer">
+            LEGO TECH • Sistema Oficial FLL
+        </div>
 
-<div class="card">
-
-<div class="foto">
-<img src="duda.jpeg">
-</div>
-
-<div class="nome">
-Eduarda
-</div>
-
-<div class="funcao">
-Técnica
-</div>
-
-</div>
-
-<!-- NICOLAS -->
-
-<div class="card">
-
-<div class="foto">
-<img src="nicolas.jpeg">
-</div>
-
-<div class="nome">
-Nicolas
-</div>
-
-<div class="funcao">
-Mentor 
-(Design do robô)
-</div>
-
-</div>
-
-<!-- ISAAC -->
-
-
-<!-- HELO -->
-
-<div class="card">
-
-<div class="foto">
-<img src="Helo.jpeg">
-</div>
-
-<div class="nome">
-Helo
-</div>
-
-<div class="funcao">
-Mentora
-(Projeto/Core Values)
-</div>
-
-</div>
-</div>
-
-<!-- FOOTER -->
-
-<div class="footer">
-LEGO TECH • Sistema Oficial FLL
-</div>
-
-</div>
+    </div>
 
 </body>
 </html>
